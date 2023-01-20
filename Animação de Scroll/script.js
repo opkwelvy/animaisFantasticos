@@ -43,6 +43,7 @@ initAccordion();
 
 function initScrollSuave() {
   const linksInternos = document.querySelectorAll('.js-menu a[href^="#"]');
+
   function scrollToSection(event) {
     event.preventDefault();
     const href = event.currentTarget.getAttribute('href');
@@ -66,19 +67,25 @@ function initScrollSuave() {
 }
 initScrollSuave();
 
-function initanimacaoScroll()
-const sections = document.querySelectorAll('.js-scroll');
-if(sections.length){
-  const windowMetade = window.innerHeight * 0.6
-  function animaScroll(){
-    sections.forEach((section) => {
-      const sectionTop = section.getBoundingClientRect().top - windowMetade;
-      if(sectionTop < 0) {
-        section.classList.add('ativo');
-      }
-    })
+function initAnimacaoScroll() {
+  const sections = document.querySelectorAll('.js-scroll');
+  if(sections.length) {
+    const windowMetade = window.innerHeight * 0.6;
+
+    function animaScroll() {
+      sections.forEach((section) => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const isSectionVisible = (sectionTop - windowMetade) < 0;
+        if(isSectionVisible)
+          section.classList.add('ativo');
+        else 
+          section.classList.remove('ativo');
+      })
+    }
+
+    animaScroll();
+
+    window.addEventListener('scroll', animaScroll);
   }
-  animaScroll();
-  window.addEventListener('scroll', animaScroll)
 }
-initanimacaoScroll();
+initAnimacaoScroll();
